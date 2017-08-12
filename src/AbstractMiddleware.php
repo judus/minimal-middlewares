@@ -1,11 +1,17 @@
-<?php
+<?php namespace Maduser\Minimal\Middlewares;
 
-namespace Maduser\Minimal\Middlewares;
+use Maduser\Minimal\Middlewares\Contracts\MiddlewareInterface;
 
-
-
+/**
+ * Class AbstractMiddleware
+ *
+ * @package Maduser\Minimal\Middlewares
+ */
 abstract class AbstractMiddleware implements MiddlewareInterface
 {
+    /**
+     * @var
+     */
     protected $payload;
 
     /**
@@ -31,16 +37,10 @@ abstract class AbstractMiddleware implements MiddlewareInterface
     /**
      *
      */
-    public function before()
-    {
-        // TODO: Implement before() method.
-    }
+    public function before() {}
 
     /**
      *
      */
-    public function after()
-    {
-        // TODO: Implement after() method.
-    }
+    public function after() {}
 }

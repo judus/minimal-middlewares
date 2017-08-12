@@ -34,7 +34,7 @@
  * THE SOFTWARE.
  */
 
-namespace Maduser\Minimal\Middlewares;
+namespace Maduser\Minimal\Middlewares\Contracts;
 
 /**
  * Interface MiddlewareInterface

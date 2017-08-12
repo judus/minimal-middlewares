@@ -18,6 +18,10 @@
       "Maduser\\Minimal\\Middlewares\\": "src/"
     }
   },
+  "require": {
+    "minimal/minimal": "*",
+    "minimal/provider": "*"
+  },
   "require-dev": {
     "phpunit/phpunit": "4.*"
   },
