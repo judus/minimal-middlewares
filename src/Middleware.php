@@ -2,6 +2,7 @@
 
 use Maduser\Minimal\Framework\Facades\IOC;
 use Maduser\Minimal\Middlewares\Contracts\MiddlewareInterface;
+use Maduser\Minimal\Provider\Contracts\ProviderInterface;
 
 /**
  * Class Middleware
@@ -14,6 +15,11 @@ class Middleware extends AbstractMiddleware implements MiddlewareInterface
      * @var array
      */
     private $middlewares = [];
+
+    /**
+     * @var ProviderInterface
+     */
+    private $provider;
 
     /**
      * @return array
@@ -34,10 +40,12 @@ class Middleware extends AbstractMiddleware implements MiddlewareInterface
     /**
      * Middleware constructor.
      *
-     * @param array $middlewares
+     * @param ProviderInterface $provider
+     * @param array             $middlewares
      */
-    public function __construct(array $middlewares)
+    public function __construct(ProviderInterface $provider, array $middlewares)
     {
+        $this->provider = $provider;
         $this->setMiddlewares($middlewares);
     }
 
@@ -106,7 +114,7 @@ class Middleware extends AbstractMiddleware implements MiddlewareInterface
 
                 /** @var AbstractMiddleware $middleware */
 
-                $middleware = IOC::make($middleware, $parameters);
+                $middleware = $this->provider->make($middleware, $parameters);
 
                 $middleware->setPayload($this->getPayload());
                 $returnValue = $middleware->{$when}($this);

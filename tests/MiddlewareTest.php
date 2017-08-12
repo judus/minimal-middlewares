@@ -4,18 +4,19 @@ namespace Maduser\Minimal\Middlewares\Tests;
 
 use Maduser\Minimal\Middlewares\AbstractMiddleware;
 use Maduser\Minimal\Middlewares\Middleware;
+use Maduser\Minimal\Provider\Provider;
 use PHPUnit\Framework\TestCase;
 
 class MiddlewareTest extends TestCase
 {
     public function testConstructor()
     {
-        $middleware = new Middleware([]);
+        $middleware = new Middleware(new Provider(), []);
     }
 
     public function testSetAndGetMiddlewares()
     {
-        $middleware = new Middleware([]);
+        $middleware = new Middleware(new Provider(), []);
         $middleware->setMiddlewares(['dummy1', 'dummy2']);
 
         $result = $middleware->getMiddlewares();
@@ -27,7 +28,7 @@ class MiddlewareTest extends TestCase
     public function testExecuteWithBeforeReturningTrue()
     {
         $action = new DummyActionA();
-        $middleware = new Middleware([DummyMiddlewareA::class]);
+        $middleware = new Middleware(new Provider(), [DummyMiddlewareA::class]);
 
         $result = $middleware->dispatch(function () use ($action) {
             return $action->action();
@@ -39,7 +40,7 @@ class MiddlewareTest extends TestCase
     public function testExecuteWithBeforeReturningFalse()
     {
         $action = new DummyActionB();
-        $middleware = new Middleware([DummyMiddlewareB::class]);
+        $middleware = new Middleware(new Provider(), [DummyMiddlewareB::class]);
 
         $result = $middleware->dispatch(function () use ($action) {
             $action->action();
@@ -55,7 +56,7 @@ class MiddlewareTest extends TestCase
     public function testExecuteBeforeExecutesAction()
     {
         $action = new DummyActionA();
-        $middleware = new Middleware([DummyMiddlewareC::class]);
+        $middleware = new Middleware(new Provider(), [DummyMiddlewareC::class]);
 
         $result = $middleware->dispatch(function () use ($action) {
             return $action->action();
@@ -65,7 +66,7 @@ class MiddlewareTest extends TestCase
     public function testExecuteAfterExecutesAction()
     {
         $action = new DummyActionA();
-        $middleware = new Middleware([DummyMiddlewareD::class]);
+        $middleware = new Middleware(new Provider(), [DummyMiddlewareD::class]);
 
         $result = $middleware->dispatch(function () use ($action) {
             return $action->action();
@@ -77,7 +78,7 @@ class MiddlewareTest extends TestCase
     public function testExecuteSeveralMiddlewares()
     {
         $action = new DummyActionA();
-        $middleware = new Middleware([
+        $middleware = new Middleware(new Provider(), [
             DummyMiddlewareE::class,
             DummyMiddlewareD::class
         ]);
