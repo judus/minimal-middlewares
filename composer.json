@@ -19,7 +19,7 @@
     }
   },
   "require": {
-    "minimal/provider": "v0.1.7"
+    "minimal/provider": "v0.2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "4.*"
